@@ -1,24 +1,60 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import LoginPage from "./pages/LogInPage";
+import HomePage from "./pages/HomePage";
+import RewardsPage from "./pages/RewardsPage";
+import RoutePlannerPage from "./pages/RoutePlannerPage";
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  // Load user from localStorage on refresh
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) setUser(JSON.parse(storedUser));
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        {/* Login Route */}
+        <Route path="/login" element={<LoginPage setUser={setUser} />} />
+
+        {/* Protected routes */}
+        <Route
+          path="/home"
+          element={
+            user ? <HomePage user={user} logout={handleLogout} /> : <Navigate to="/login" />
+          }
+        />
+
+        <Route
+          path="/rewards"
+          element={
+            user && user.role !== "GUEST" ? (
+              <RewardsPage user={user} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        <Route
+          path="/routes"
+          element={
+            user ? <RoutePlannerPage user={user} /> : <Navigate to="/login" />
+          }
+        />
+
+        {/* Default redirect */}
+        <Route path="*" element={<Navigate to={user ? "/home" : "/login"} />} />
+      </Routes>
+    </Router>
   );
 }
 
