@@ -1,3 +1,36 @@
 {
-    "java.compile.nullAnalysis.mode": "automatic"
+    "java.compile.nullAnalysis.mode": "automatic",
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "xprotocol",
+                "enableSsl": "Disabled"
+            },
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 33060,
+            "driver": "MySQL",
+            "name": "EcoRoute Local",
+            "database": "ecoroute",
+            "username": "root",
+            "password": "root123",
+            "connectionTimeout": 30
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "turntable.proxy.rlwy.net",
+            "port": 53157,
+            "driver": "MySQL",
+            "name": "Railway Eco Route",
+            "database": "railway",
+            "username": "root",
+            "password": "wtbVcDJQlATQQjylVtYiRrohYWuwpEbi"
+        }
+    ]
 }
