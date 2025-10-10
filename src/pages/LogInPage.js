@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import api from "../services/api";
 import "../App.css"; // optional styling
 
 function LoginPage({ setUser }) {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -15,14 +17,16 @@ function LoginPage({ setUser }) {
     setError("");
 
     try {
-      const res = await axios.post("http://localhost:8080/api/users/login", {
-        username,
-        password,
-      });
+      const res = await api.post("/api/users/login", { username, password });
 
-      // Store user data locally
-      localStorage.setItem("user", JSON.stringify(res.data));
-      setUser(res.data);
+      if (res.data && res.data.error) {
+        setError("Invalid username or password.");
+      } else {
+        // Store user data locally and update app state
+        localStorage.setItem("user", JSON.stringify(res.data));
+        setUser(res.data);
+        navigate("/home");
+      }
     } catch (err) {
       setError("Invalid username or password.");
     } finally {
@@ -33,9 +37,10 @@ function LoginPage({ setUser }) {
   // Handle guest login
   const handleGuest = async () => {
     try {
-      const res = await axios.post("http://localhost:8080/api/users/guest");
+      const res = await api.post("/api/users/guest");
       localStorage.setItem("user", JSON.stringify(res.data));
       setUser(res.data);
+      navigate("/home");
     } catch (err) {
       setError("Guest login failed. Please try again.");
     }

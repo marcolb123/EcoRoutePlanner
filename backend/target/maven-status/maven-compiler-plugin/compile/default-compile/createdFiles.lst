@@ -1,1 +1,5 @@
-com\ecoroute\controller\SampleController.class
+com\ecoroute\controller\AuthController.class
+com\ecoroute\repository\UserRepository.class
+com\ecoroute\model\User.class
+com\ecoroute\model\User$Role.class
+com\ecoroute\service\UserService.class
