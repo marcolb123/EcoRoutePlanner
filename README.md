@@ -11,7 +11,7 @@ A sustainable travel app built with:
 ## Folder Structure
 - `/frontend` → React source
 - `/backend` → Java backend
-- `/database` → SQL schema
+- `/database` → SQL schema hosted on Railway for easy access 
 
 ## How to Run
 1. Start MySQL and import `database/ecoroute.sql`
