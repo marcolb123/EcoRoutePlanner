@@ -172,16 +172,6 @@ Runs on [http://localhost:8080](http://localhost:8080)
   ```
 * Submit a pull request on GitHub for review.
 
----
 
-**EcoRoute Planner © 2025 – Sustainable Route Optimization Platform**
-
-```
-
----
-
-This Markdown file can be saved directly as  
-`README.md` in your repository root.  
-It will render cleanly on GitHub with full code-block syntax highlighting and section navigation.
 ```
 
