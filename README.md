@@ -48,8 +48,6 @@ choco install maven -y
 mvn -v
 ```
 
----
-
 ## 3. Install Visual Studio Code and Extensions
 
 1. Download from [https://code.visualstudio.com](https://code.visualstudio.com)
@@ -78,21 +76,6 @@ Then open this folder in **VS Code**.
 
 The backend is already configured for the shared Railway database.
 
-**File:**
-`backend/src/main/resources/application.properties`
-
-**Configuration:**
-
-```properties
-spring.datasource.url=jdbc:mysql://turntable.proxy.rlwy.net:53157/railway?useSSL=false&serverTimezone=UTC
-spring.datasource.username=root
-spring.datasource.password=wtbVcDJQlATQQjylVtYiRrohYWuwpEbi
-spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
-```
-
 **Run the backend:**
 
 ```bash
@@ -106,20 +89,7 @@ Runs on [http://localhost:8080](http://localhost:8080)
 
 ## 6. Access the Railway Database via SQLTools
 
-1. In VS Code → open **Command Palette (Ctrl + Shift + P)**
-   → choose **SQLTools: Add New Connection**
-2. Select **MySQL/MariaDB driver**
-3. Enter the following:
-
-   ```
-   Server: turntable.proxy.rlwy.net
-   Port: 53157
-   Database: railway
-   Username: root
-   Password: wtbVcDJQlATQQjylVtYiRrohYWuwpEbi
-   ```
-4. Test the connection → you should see tables such as `users`, `vehicles`, and `routes`.
-
+1. In SQL tools, connect the Railway SQL database which should already be configured.
 ---
 
 ## 7. Frontend Setup (React)
@@ -128,15 +98,10 @@ Runs on [http://localhost:8080](http://localhost:8080)
 2. In terminal:
 
    ```bash
-   cd eco-travel-frontend
+   cd (insert your path to EcoRoutePlanner folder)
    npm install
    ```
-3. Create a file named `.env.local`:
 
-   ```env
-   REACT_APP_API_BASE_URL=http://localhost:8080
-   REACT_APP_GOOGLE_MAPS_API_KEY=YOUR_API_KEY
-   ```
 4. Start the frontend:
 
    ```bash
