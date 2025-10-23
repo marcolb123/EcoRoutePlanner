@@ -4,6 +4,7 @@ import LoginPage from "./pages/LogInPage";
 import HomePage from "./pages/HomePage";
 import RewardsPage from "./pages/RewardsPage";
 import RoutePlannerPage from "./pages/RoutePlannerPage";
+import GuestGuard from "./components/GuestGard";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -33,14 +34,13 @@ function App() {
           }
         />
 
+        {/* Rewards: allow only non-guest users; if guest show modal */}
         <Route
           path="/rewards"
           element={
-            user && user.role !== "GUEST" ? (
+            <GuestGuard user={user}>
               <RewardsPage user={user} />
-            ) : (
-              <Navigate to="/login" />
-            )
+            </GuestGuard>
           }
         />
 

@@ -8,6 +8,7 @@ function LoginPage({ setUser }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [guestLoading, setGuestLoading] = useState(false);
   const [error, setError] = useState("");
 
   // Handle login
@@ -36,6 +37,8 @@ function LoginPage({ setUser }) {
 
   // Handle guest login
   const handleGuest = async () => {
+    setError("");
+    setGuestLoading(true);
     try {
       const res = await api.post("/api/users/guest");
       localStorage.setItem("user", JSON.stringify(res.data));
@@ -43,6 +46,8 @@ function LoginPage({ setUser }) {
       navigate("/home");
     } catch (err) {
       setError("Guest login failed. Please try again.");
+    } finally {
+      setGuestLoading(false);
     }
   };
 
@@ -74,8 +79,12 @@ function LoginPage({ setUser }) {
           </button>
         </form>
 
-        <button className="guest-btn" onClick={handleGuest}>
-          Continue as Guest
+        <button
+          className="guest-btn"
+          onClick={handleGuest}
+          disabled={guestLoading}
+        >
+          {guestLoading ? "Continuing as Guest..." : "Continue as Guest"}
         </button>
 
         {error && <p className="error">{error}</p>}
