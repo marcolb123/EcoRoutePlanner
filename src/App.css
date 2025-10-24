@@ -284,3 +284,81 @@
     width: 120px;
   }
 }
+/* Login / primary button styling */
+.primary-btn {
+  background: #2e7d32;
+  color: #fff;
+  padding: 0.55rem 0.95rem;
+  border-radius: 6px;
+  border: 1px solid #256826;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+/* small link-like button used on login to toggle register */
+.link-like {
+  background: transparent;
+  border: none;
+  color: #2e7d32;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 6px 8px;
+}
+
+/* --- Rewards page styles --- */
+.rewards-box {
+  padding: 1.5rem 2.5rem;
+}
+
+.rewards-list {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.reward-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fafafa;
+  border: 1px solid #eaeaea;
+  padding: 0.8rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+.reward-info {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.reward-title {
+  font-weight: 700;
+  color: #222;
+}
+
+.reward-cost {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.redeem-btn {
+  background: #2e7d32;
+  color: white;
+  border: 1px solid #256826;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.redeem-btn[disabled] {
+  background: #e0e0e0;
+  border-color: #cfcfcf;
+  color: #7a7a7a;
+  cursor: not-allowed;
+}

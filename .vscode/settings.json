@@ -32,5 +32,6 @@
             "username": "root",
             "password": "wtbVcDJQlATQQjylVtYiRrohYWuwpEbi"
         }
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

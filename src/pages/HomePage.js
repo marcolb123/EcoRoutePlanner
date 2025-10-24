@@ -1,8 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../App.css";
 
 function HomePage({ user, logout }) {
+  const navigate = useNavigate();
+  const isGuest = user?.role === "GUEST";
+
+  const handlePrimary = () => {
+    if (isGuest) {
+      // For guests, take them to the login page to sign in
+      navigate("/login");
+    } else {
+      // For regular users, perform logout
+      logout();
+    }
+  };
+
   return (
     <div className="login-container">
       <div className="login-box home-box">
@@ -41,8 +54,11 @@ function HomePage({ user, logout }) {
         </div>
 
         <div className="home-footer">
-          <button onClick={logout} className="action-btn logout">
-            Sign in
+          <button
+            onClick={handlePrimary}
+            className={isGuest ? "action-btn logout" : "action-btn logout"}
+          >
+            {isGuest ? "Sign in" : "Logout"}
           </button>
         </div>
       </div>

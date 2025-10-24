@@ -2,7 +2,6 @@ package com.ecoroute.service;
 
 import java.util.Optional;
 
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.ecoroute.model.User;
@@ -18,35 +17,39 @@ public class UserService {
                    .filter(u -> u.getPassword() != null && u.getPassword().equals(password));
     }
 
-    // Reuse an already-made guest user instead of creating a new one every time.
+    // Reuse/create guest (existing logic)
     public User createGuest() {
-        // Prefer a canonical username "guest" if it exists
         Optional<User> byName = repo.findByUsername("guest");
         if (byName.isPresent()) {
             return byName.get();
         }
 
-        // Fallback: return any existing user with role GUEST
         Optional<User> anyGuest = repo.findFirstByRole(User.Role.GUEST);
         if (anyGuest.isPresent()) {
             return anyGuest.get();
         }
 
-        // No guest found: create a single canonical guest user
         User guest = new User();
-        guest.setUsername("guest"); // fixed username to avoid repeated creation
-        guest.setPassword(""); // no password
+        guest.setUsername("guest");
+        guest.setPassword("");
         guest.setRole(User.Role.GUEST);
         guest.setEcoPoints(0);
+        return repo.save(guest);
+    }
 
-        try {
-            return repo.save(guest);
-        } catch (DataIntegrityViolationException ex) {
-            // If another process created the guest concurrently, fetch and return it
-            return repo.findByUsername("guest").orElseGet(() -> {
-                // As a last resort, return the transient guest (won't be persisted)
-                return guest;
-            });
-        }
+    // Create a normal user (for registration) - now accepts email
+    public User createUser(String username, String password, String email) {
+        User u = new User();
+        u.setUsername(username);
+        u.setPassword(password); // NOTE: hash in production
+        u.setEmail(email); // may be null
+        u.setRole(User.Role.USER);
+        u.setEcoPoints(0);
+        return repo.save(u);
+    }
+
+    // Utility: check if username exists
+    public boolean usernameExists(String username) {
+        return repo.findByUsername(username).isPresent();
     }
 }
