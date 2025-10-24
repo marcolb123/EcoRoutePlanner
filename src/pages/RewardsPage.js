@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import "../App.css";
 
 function RewardsPage({ user }) {
-  // placeholder rewards list
   const rewards = [
     { id: 1, title: "5% Off EcoStore", cost: 50 },
     { id: 2, title: "Tree planted in your name", cost: 100 },
@@ -15,6 +14,7 @@ function RewardsPage({ user }) {
   return (
     <div className="login-container">
       <div className="login-box rewards-box">
+        <img src="/logo.png" alt="ECO Route Logo" className="page-logo" />
         <h2>Rewards</h2>
         <p className="muted">You have <strong>{points}</strong> Eco Points</p>
 

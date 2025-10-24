@@ -19,6 +19,7 @@ function HomePage({ user, logout }) {
   return (
     <div className="login-container">
       <div className="login-box home-box">
+        <img src="/logo.png" alt="ECO Route Logo" className="page-logo" />
         <h2>Welcome, {user.username}!</h2>
         <p className="muted user-role">Role: {user.role}</p>
 

@@ -362,3 +362,18 @@
   color: #7a7a7a;
   cursor: not-allowed;
 }
+
+/* Logo styling */
+.page-logo {
+  width: 120px;
+  height: auto;
+  margin: 0 auto 1rem auto;
+  display: block;
+}
+
+/* Responsive logo sizing */
+@media (max-width: 600px) {
+  .page-logo {
+    width: 90px;
+  }
+}

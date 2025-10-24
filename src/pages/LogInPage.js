@@ -97,8 +97,9 @@ function LoginPage({ setUser }) {
   return (
     <div className="login-container">
       <div className="login-box">
-        <h2>Eco Route Planner</h2>
-        <p>Sign in to continue or explore as guest</p>
+        <img src="/logo.png" alt="ECO Route Logo" className="page-logo" />
+        <h3>Sign in to continue or explore as guest</h3>
+        
 
         {!showRegister ? (
           <>
