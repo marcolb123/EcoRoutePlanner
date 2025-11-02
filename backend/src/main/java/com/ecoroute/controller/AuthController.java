@@ -4,7 +4,9 @@ import java.util.Map;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -72,4 +74,26 @@ public class AuthController {
             return ResponseEntity.status(500).body(Map.of("error", "server_error"));
         }
     }
+
+        @PutMapping("/{id}/eco-points")
+    public ResponseEntity<?> updateEcoPoints(
+        @PathVariable Integer id,
+        @RequestBody Map<String, Integer> body) {
+    
+    Integer pointsToDeduct = body.get("pointsToDeduct");
+    
+    if (pointsToDeduct == null || pointsToDeduct < 0) {
+        return ResponseEntity.badRequest()
+                .body(Map.of("error", "Invalid points amount"));
+    }
+    
+    return userService.deductEcoPoints(id, pointsToDeduct)
+            .<ResponseEntity<?>>map(user -> {
+                user.setPassword(null); // Don't send password back
+                return ResponseEntity.ok(Map.of("ecoPoints", user.getEcoPoints()));
+            })
+            .orElseGet(() -> ResponseEntity
+                    .notFound()
+                    .build());
+}
 }

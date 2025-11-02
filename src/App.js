@@ -39,7 +39,7 @@ function App() {
           path="/rewards"
           element={
             <GuestGuard user={user}>
-              <RewardsPage user={user} />
+              <RewardsPage user={user} setUser={setUser} />
             </GuestGuard>
           }
         />

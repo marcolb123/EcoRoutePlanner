@@ -52,4 +52,29 @@ public class UserService {
     public boolean usernameExists(String username) {
         return repo.findByUsername(username).isPresent();
     }
+
+    // Deduct eco points with validation
+
+    public Optional<User> deductEcoPoints(Integer userId, Integer pointsToDeduct) {
+
+        // Validate input parameters
+        if (userId == null || pointsToDeduct == null) {
+        return Optional.empty();
+        }
+
+    Optional<User> userOpt = repo.findById(userId);
+    if (userOpt.isPresent()) {
+        User user = userOpt.get();
+
+        if (user.getEcoPoints() < pointsToDeduct) {
+            return Optional.empty();  // Reject - not enough points
+        }
+
+        int newPoints = user.getEcoPoints() - pointsToDeduct;
+        user.setEcoPoints(newPoints); //updates user points
+        repo.save(user);
+        return Optional.of(user);
+    }
+    return Optional.empty();
+    }
 }
