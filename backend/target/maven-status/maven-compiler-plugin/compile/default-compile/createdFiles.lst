@@ -1,7 +1,0 @@
-com\ecoroute\controller\AuthController.class
-com\ecoroute\repository\UserRepository.class
-com\ecoroute\EcoRouteBackendApplication.class
-com\ecoroute\config\SecurityConfig.class
-com\ecoroute\model\User.class
-com\ecoroute\model\User$Role.class
-com\ecoroute\service\UserService.class
