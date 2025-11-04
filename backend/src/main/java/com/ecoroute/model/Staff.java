@@ -29,4 +29,35 @@ public class Staff extends User {
 
     public String getEmploymentStatus() { return employmentStatus; }
     public void setEmploymentStatus(String employmentStatus) { this.employmentStatus = employmentStatus; }
+
+    // No-arg constructor required by JPA
+    public Staff() {
+        super();
+    }
+
+    /**
+     * Convenience constructor that copies fields from an existing User and sets
+     * staff-specific fields (role and employmentStatus).
+     */
+    public Staff(User user, Role role, String employmentStatus) {
+        super();
+        if (user != null) {
+            setId(user.getId());
+            setFirstName(user.getFirstName());
+            setLastName(user.getLastName());
+            setStreet(user.getStreet());
+            setCity(user.getCity());
+            setPostCode(user.getPostCode());
+            setRegisteredAt(user.getRegisteredAt());
+            setSuspended(user.isSuspended());
+            setUsername(user.getUsername());
+            setPassword(user.getPassword());
+            setEmail(user.getEmail());
+            setPhoneNumber(user.getPhoneNumber());
+            setRole(user.getRole());
+            setEcoPoints(user.getEcoPoints());
+        }
+        this.role = role;
+        this.employmentStatus = employmentStatus;
+    }
 }
