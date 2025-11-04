@@ -1,18 +1,18 @@
-C:\Users\ethal\Desktop\Uni Work\Year 3\Team Project\Project\EcoRoutePlanner\backend\src\main\java\com\ecoroute\config\SecurityConfig.java
-C:\Users\ethal\Desktop\Uni Work\Year 3\Team Project\Project\EcoRoutePlanner\backend\src\main\java\com\ecoroute\database\RewardDatabaseManager.java
-C:\Users\ethal\Desktop\Uni Work\Year 3\Team Project\Project\EcoRoutePlanner\backend\src\main\java\com\ecoroute\database\DatabaseManager.java
-C:\Users\ethal\Desktop\Uni Work\Year 3\Team Project\Project\EcoRoutePlanner\backend\src\main\java\com\ecoroute\database\JourneyDatabaseManager.java
-C:\Users\ethal\Desktop\Uni Work\Year 3\Team Project\Project\EcoRoutePlanner\backend\src\main\java\com\ecoroute\database\StaffDatabaseManager.java
-C:\Users\ethal\Desktop\Uni Work\Year 3\Team Project\Project\EcoRoutePlanner\backend\src\main\java\com\ecoroute\model\User.java
-C:\Users\ethal\Desktop\Uni Work\Year 3\Team Project\Project\EcoRoutePlanner\backend\src\main\java\com\ecoroute\database\MemberDatabaseManager.java
-C:\Users\ethal\Desktop\Uni Work\Year 3\Team Project\Project\EcoRoutePlanner\backend\src\main\java\com\ecoroute\model\Staff.java
-C:\Users\ethal\Desktop\Uni Work\Year 3\Team Project\Project\EcoRoutePlanner\backend\src\main\java\com\ecoroute\model\Reward.java
-C:\Users\ethal\Desktop\Uni Work\Year 3\Team Project\Project\EcoRoutePlanner\backend\src\main\java\com\ecoroute\EcoRouteBackendApplication.java
-C:\Users\ethal\Desktop\Uni Work\Year 3\Team Project\Project\EcoRoutePlanner\backend\src\main\java\com\ecoroute\repository\UserRepository.java
-C:\Users\ethal\Desktop\Uni Work\Year 3\Team Project\Project\EcoRoutePlanner\backend\src\main\java\com\ecoroute\service\UserService.java
-C:\Users\ethal\Desktop\Uni Work\Year 3\Team Project\Project\EcoRoutePlanner\backend\src\main\java\com\ecoroute\controller\AuthController.java
-C:\Users\ethal\Desktop\Uni Work\Year 3\Team Project\Project\EcoRoutePlanner\backend\src\main\java\com\ecoroute\model\Journey.java
-C:\Users\ethal\Desktop\Uni Work\Year 3\Team Project\Project\EcoRoutePlanner\backend\src\main\java\com\ecoroute\model\Role.java
-C:\Users\ethal\Desktop\Uni Work\Year 3\Team Project\Project\EcoRoutePlanner\backend\src\main\java\com\ecoroute\database\RoleDatabaseManager.java
-C:\Users\ethal\Desktop\Uni Work\Year 3\Team Project\Project\EcoRoutePlanner\backend\src\main\java\com\ecoroute\database\UserDatabaseManager.java
-C:\Users\ethal\Desktop\Uni Work\Year 3\Team Project\Project\EcoRoutePlanner\backend\src\main\java\com\ecoroute\model\Member.java
+/workspaces/EcoRoutePlanner/backend/src/main/java/com/ecoroute/service/UserService.java
+/workspaces/EcoRoutePlanner/backend/src/main/java/com/ecoroute/database/UserDatabaseManager.java
+/workspaces/EcoRoutePlanner/backend/src/main/java/com/ecoroute/EcoRouteBackendApplication.java
+/workspaces/EcoRoutePlanner/backend/src/main/java/com/ecoroute/model/Journey.java
+/workspaces/EcoRoutePlanner/backend/src/main/java/com/ecoroute/repository/UserRepository.java
+/workspaces/EcoRoutePlanner/backend/src/main/java/com/ecoroute/controller/AuthController.java
+/workspaces/EcoRoutePlanner/backend/src/main/java/com/ecoroute/model/User.java
+/workspaces/EcoRoutePlanner/backend/src/main/java/com/ecoroute/model/Reward.java
+/workspaces/EcoRoutePlanner/backend/src/main/java/com/ecoroute/database/RoleDatabaseManager.java
+/workspaces/EcoRoutePlanner/backend/src/main/java/com/ecoroute/database/StaffDatabaseManager.java
+/workspaces/EcoRoutePlanner/backend/src/main/java/com/ecoroute/database/JourneyDatabaseManager.java
+/workspaces/EcoRoutePlanner/backend/src/main/java/com/ecoroute/config/SecurityConfig.java
+/workspaces/EcoRoutePlanner/backend/src/main/java/com/ecoroute/model/Staff.java
+/workspaces/EcoRoutePlanner/backend/src/main/java/com/ecoroute/database/DatabaseManager.java
+/workspaces/EcoRoutePlanner/backend/src/main/java/com/ecoroute/database/RewardDatabaseManager.java
+/workspaces/EcoRoutePlanner/backend/src/main/java/com/ecoroute/model/Member.java
+/workspaces/EcoRoutePlanner/backend/src/main/java/com/ecoroute/database/MemberDatabaseManager.java
+/workspaces/EcoRoutePlanner/backend/src/main/java/com/ecoroute/model/Role.java
