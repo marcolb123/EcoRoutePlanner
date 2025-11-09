@@ -37,7 +37,15 @@ function LoginPage({ setUser }) {
         navigate("/home");
       }
     } catch (err) {
-      setError("Invalid username or password.");
+      // Distinguish network/back-end availability from invalid credentials
+      if (!err.response) {
+        // No response from server (timeout / network error)
+        setError("Backend unavailable — try again later.");
+      } else if (err.response.status === 400 && err.response.data?.error === 'invalid_credentials') {
+        setError("Invalid username or password.");
+      } else {
+        setError("Login failed — please try again.");
+      }
     } finally {
       setLoading(false);
     }

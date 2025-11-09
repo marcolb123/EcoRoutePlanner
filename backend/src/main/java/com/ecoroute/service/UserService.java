@@ -1,80 +1,68 @@
 package com.ecoroute.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.ecoroute.database.UserDatabaseManager;
 import com.ecoroute.model.User;
-import com.ecoroute.repository.UserRepository;
 
 @Service
 public class UserService {
-    private final UserRepository repo;
-    public UserService(UserRepository repo) { this.repo = repo; }
 
     public Optional<User> authenticate(String username, String password) {
-        return repo.findByUsername(username)
-                   .filter(u -> u.getPassword() != null && u.getPassword().equals(password));
+        if (username == null || password == null) return Optional.empty();
+        List<User> all = UserDatabaseManager.getAll();
+        return all.stream()
+                  .filter(u -> username.equals(u.getUsername())
+                            && password.equals(u.getPassword()))
+                  .findFirst();
     }
 
-    // Reuse/create guest (existing logic)
+    // Reuse/create guest (existing logic using custom DB manager)
     public User createGuest() {
-        Optional<User> byName = repo.findByUsername("guest");
-        if (byName.isPresent()) {
-            return byName.get();
-        }
+        List<User> all = UserDatabaseManager.getAll();
+        Optional<User> byName = all.stream().filter(u -> "guest".equals(u.getUsername())).findFirst();
+        if (byName.isPresent()) return byName.get();
 
-        Optional<User> anyGuest = repo.findFirstByRole(User.Role.GUEST);
-        if (anyGuest.isPresent()) {
-            return anyGuest.get();
-        }
-
+        // Create and persist
         User guest = new User();
         guest.setUsername("guest");
         guest.setPassword("");
-        guest.setRole(User.Role.GUEST);
+        guest.setRole(User.UserRole.GUEST);
         guest.setEcoPoints(0);
-        return repo.save(guest);
+        UserDatabaseManager.insert(guest);
+
+        // Reload and return persisted user (lookup by username)
+        return UserDatabaseManager.getAll().stream().filter(u -> "guest".equals(u.getUsername())).findFirst().orElse(guest);
     }
 
-    // Create a normal user (for registration) - now accepts email
     public User createUser(String username, String password, String email) {
         User u = new User();
         u.setUsername(username);
         u.setPassword(password); // NOTE: hash in production
-        u.setEmail(email); // may be null
-        u.setRole(User.Role.USER);
+        u.setEmail(email);
+        u.setRole(User.UserRole.USER);
         u.setEcoPoints(0);
-        return repo.save(u);
+        UserDatabaseManager.insert(u);
+        return UserDatabaseManager.getAll().stream().filter(x -> username.equals(x.getUsername())).findFirst().orElse(u);
     }
 
-    // Utility: check if username exists
     public boolean usernameExists(String username) {
-        return repo.findByUsername(username).isPresent();
+        return UserDatabaseManager.getAll().stream().anyMatch(u -> username.equals(u.getUsername()));
     }
-
-    // Deduct eco points with validation
 
     public Optional<User> deductEcoPoints(Integer userId, Integer pointsToDeduct) {
-
-        // Validate input parameters
-        if (userId == null || pointsToDeduct == null) {
+        if (userId == null || pointsToDeduct == null) return Optional.empty();
+        Optional<User> userOpt = UserDatabaseManager.getAll().stream().filter(u -> userId.equals(u.getId())).findFirst();
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            if (user.getEcoPoints() == null || user.getEcoPoints() < pointsToDeduct) return Optional.empty();
+            user.setEcoPoints(user.getEcoPoints() - pointsToDeduct);
+            UserDatabaseManager.update(user);
+            return Optional.of(user);
+        }
         return Optional.empty();
-        }
-
-    Optional<User> userOpt = repo.findById(userId);
-    if (userOpt.isPresent()) {
-        User user = userOpt.get();
-
-        if (user.getEcoPoints() < pointsToDeduct) {
-            return Optional.empty();  // Reject - not enough points
-        }
-
-        int newPoints = user.getEcoPoints() - pointsToDeduct;
-        user.setEcoPoints(newPoints); //updates user points
-        repo.save(user);
-        return Optional.of(user);
-    }
-    return Optional.empty();
     }
 }

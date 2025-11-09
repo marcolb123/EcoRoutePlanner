@@ -1,0 +1,29 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.1.4)
+
+2025-11-09T19:58:36.736Z  INFO 90396 --- [           main] c.ecoroute.EcoRouteBackendApplication    : Starting EcoRouteBackendApplication v0.0.1-SNAPSHOT using Java 17.0.16 with PID 90396 (/workspaces/EcoRoutePlanner/backend/target/ecoroute-backend-0.0.1-SNAPSHOT.jar started by codespace in /workspaces/EcoRoutePlanner)
+2025-11-09T19:58:36.742Z  INFO 90396 --- [           main] c.ecoroute.EcoRouteBackendApplication    : The following 1 profile is active: "sqlite"
+2025-11-09T19:58:38.633Z  INFO 90396 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2025-11-09T19:58:38.646Z  INFO 90396 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-11-09T19:58:38.646Z  INFO 90396 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.13]
+2025-11-09T19:58:38.780Z  INFO 90396 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-11-09T19:58:38.782Z  INFO 90396 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1917 ms
+2025-11-09T19:58:38.971Z  WARN 90396 --- [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: c24ff2f3-7aa4-4046-a3b9-f1c81a9ee64b
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-11-09T19:58:39.129Z  INFO 90396 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@65045a87, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@47f4e407, org.springframework.security.web.context.SecurityContextHolderFilter@6b3e12b5, org.springframework.security.web.header.HeaderWriterFilter@35d08e6c, org.springframework.web.filter.CorsFilter@2d1dee39, org.springframework.security.web.authentication.logout.LogoutFilter@6492fab5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1338fb5, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@59f63e24, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@48d5f34e, org.springframework.security.web.access.ExceptionTranslationFilter@3b00856b, org.springframework.security.web.access.intercept.AuthorizationFilter@1d470d0]
+2025-11-09T19:58:39.280Z  INFO 90396 --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: ServletContext resource [/index.html]
+2025-11-09T19:58:39.492Z  INFO 90396 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2025-11-09T19:58:39.513Z  INFO 90396 --- [           main] c.ecoroute.EcoRouteBackendApplication    : Started EcoRouteBackendApplication in 3.511 seconds (process running for 4.146)
+2025-11-09T19:59:00.130Z  INFO 90396 --- [nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-09T19:59:00.130Z  INFO 90396 --- [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-11-09T19:59:00.132Z  INFO 90396 --- [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms

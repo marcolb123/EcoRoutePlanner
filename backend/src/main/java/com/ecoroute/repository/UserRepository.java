@@ -1,14 +1,9 @@
 package com.ecoroute.repository;
 
-import java.util.Optional;
+/**
+ * Placeholder interface kept to avoid compile issues in mixed branches.
+ * The project now uses custom DB managers instead of Spring Data JPA.
+ */
+public interface UserRepository {
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.ecoroute.model.User;
-
-public interface UserRepository extends JpaRepository<User, Integer> {
-    Optional<User> findByUsername(String username);
-
-    // Return any existing user with the given role (useful to reuse a guest account)
-    Optional<User> findFirstByRole(User.Role role);
 }

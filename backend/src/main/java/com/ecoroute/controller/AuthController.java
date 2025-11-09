@@ -2,7 +2,6 @@ package com.ecoroute.controller;
 
 import java.util.Map;
 
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,25 +55,25 @@ public class AuthController {
             return ResponseEntity.badRequest().body(Map.of("error", "missing_fields"));
         }
 
-        // Early check to avoid database round-trip on duplicate username
-        if (userService.usernameExists(username)) {
-            return ResponseEntity.badRequest().body(Map.of("error", "username_taken"));
+            // Early check to avoid database round-trip on duplicate username
+            if (userService.usernameExists(username)) {
+                return ResponseEntity.badRequest().body(Map.of("error", "username_taken"));
+            }
+    
+            try {
+                User created = userService.createUser(username, password, email);
+                created.setPassword(null);
+                return ResponseEntity.ok(created);
+            } catch (RuntimeException dive) {
+                // Handle database constraint/duplicate username or other runtime exceptions
+                return ResponseEntity.badRequest().body(Map.of("error", "username_taken"));
+                } catch (Exception ex) {
+                    // Log exception in server logs for debugging
+                    ex.printStackTrace();
+                    return ResponseEntity.status(500).body(Map.of("error", "server_error"));
+                }
         }
-
-        try {
-            User created = userService.createUser(username, password, email);
-            created.setPassword(null);
-            return ResponseEntity.ok(created);
-        } catch (DataIntegrityViolationException dive) {
-            // Fallback: concurrent registration might still cause unique constraint error
-            return ResponseEntity.badRequest().body(Map.of("error", "username_taken"));
-        } catch (Exception ex) {
-            // Log exception in server logs for debugging
-            ex.printStackTrace();
-            return ResponseEntity.status(500).body(Map.of("error", "server_error"));
-        }
-    }
-
+    
         @PutMapping("/{id}/eco-points")
     public ResponseEntity<?> updateEcoPoints(
         @PathVariable Integer id,
