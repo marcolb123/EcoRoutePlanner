@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/rewards")
 
-public class RewardController {
+public class StaffRewardsController {
 
     @GetMapping("/all")
     public ResponseEntity<List<Reward>> getAllRewards() {
