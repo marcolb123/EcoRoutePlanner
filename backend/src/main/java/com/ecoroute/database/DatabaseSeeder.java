@@ -50,47 +50,20 @@ public class DatabaseSeeder {
 				RoleDatabaseManager.insert(r3);
 			}
 
-			// Seed users
-			if (UserDatabaseManager.getAll().isEmpty()) {
-				User u1 = new User();
-				u1.setFirstName("Alice");
-				u1.setLastName("Anderson");
-				u1.setUsername("alice");
-				u1.setPassword("password");
-				u1.setEmail("alice@example.com");
-				u1.setRegisteredAt(LocalDateTime.now());
-				UserDatabaseManager.insert(u1);
-
-				User u2 = new User();
-				u2.setFirstName("Bob");
-				u2.setLastName("Baker");
-				u2.setUsername("bob");
-				u2.setPassword("password");
-				u2.setEmail("bob@example.com");
-				u2.setRegisteredAt(LocalDateTime.now());
-				UserDatabaseManager.insert(u2);
-
-				User u3 = new User();
-				u3.setFirstName("Jim");
-				u3.setLastName("Jumbo");
-				u3.setUsername("jim");
-				u3.setPassword("password");
-				u3.setEmail("jim@example.com");
-				u3.setRegisteredAt(LocalDateTime.now());
-				UserDatabaseManager.insert(u3);
-			}
-
 			// Seed members
 			if (MemberDatabaseManager.getAll().isEmpty()) {
+				User u1 = new User("Alice", "Anderson", "123 Main St", "Springfield", "12345", "alice", "password", "alice@example.com", "555-1234", UserRole.USER, 0);
 				Member m1 = new Member(u1, 0, "regular");
 				MemberDatabaseManager.insert(m1);
 
+				User u2 = new User("Bob", "Baker", "456 Elm St", "Springfield", "12345", "bob", "password", "bob@example.com", "555-5678", UserRole.USER, 0);
 				Member m2 = new Member(u2, 0, "occasional");
 				MemberDatabaseManager.insert(m2);
 			}
 
 			// Seed staff
 			if (StaffDatabaseManager.getAll().isEmpty()) {
+				User u3 = new User("Jim", "Jumbo", "789 Oak St", "Springfield", "12345", "jim", "password", "jim@example.com", "555-9012", UserRole.ADMIN, 0);
 				Staff s = new Staff(u3, Role.ADMIN, "full-time");
 				StaffDatabaseManager.insert(s);
 			}

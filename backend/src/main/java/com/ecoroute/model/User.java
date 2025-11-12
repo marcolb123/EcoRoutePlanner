@@ -75,4 +75,20 @@ public class User {
 
     public Integer getEcoPoints() { return ecoPoints; }
     public void setEcoPoints(Integer ecoPoints) { this.ecoPoints = ecoPoints; }
+
+    private void User(String firstName, String lastName, String street, String city, String postcode, String username, String password, String email, String phoneNumber, UserRole role, Integer ecoPoints) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.street = street;
+        this.city = city;
+        this.postCode = postcode;
+        this.registeredAt = LocalDateTime.now();
+        this.isSuspended = false;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.role = role;
+        this.ecoPoints = ecoPoints;
+    }
 }
