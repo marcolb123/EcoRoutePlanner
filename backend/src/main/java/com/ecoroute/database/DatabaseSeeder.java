@@ -69,25 +69,29 @@ public class DatabaseSeeder {
 				u2.setEmail("bob@example.com");
 				u2.setRegisteredAt(LocalDateTime.now());
 				UserDatabaseManager.insert(u2);
+
+				User u3 = new User();
+				u3.setFirstName("Jim");
+				u3.setLastName("Jumbo");
+				u3.setUsername("jim");
+				u3.setPassword("password");
+				u3.setEmail("jim@example.com");
+				u3.setRegisteredAt(LocalDateTime.now());
+				UserDatabaseManager.insert(u3);
 			}
 
 			// Seed members
 			if (MemberDatabaseManager.getAll().isEmpty()) {
-				Member m1 = new Member();
-				m1.setPoints(120);
-				m1.setCustomerType("regular");
+				Member m1 = new Member(u1, 0, "regular");
 				MemberDatabaseManager.insert(m1);
 
-				Member m2 = new Member();
-				m2.setPoints(45);
-				m2.setCustomerType("occasional");
+				Member m2 = new Member(u2, 0, "occasional");
 				MemberDatabaseManager.insert(m2);
 			}
 
 			// Seed staff
 			if (StaffDatabaseManager.getAll().isEmpty()) {
-				Staff s = new Staff();
-				s.setEmploymentStatus("full-time");
+				Staff s = new Staff(u3, Role.ADMIN, "full-time");
 				StaffDatabaseManager.insert(s);
 			}
 
