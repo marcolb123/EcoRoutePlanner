@@ -16,8 +16,10 @@ public class MemberDatabaseManager extends DatabaseManager {
         String sql = """
             CREATE TABLE IF NOT EXISTS Member (
                 MemberId INTEGER PRIMARY KEY AUTOINCREMENT,
+                UserId INTEGER NOT NULL,
                 Points INTEGER NOT NULL,
-                CustomerType TEXT NOT NULL
+                CustomerType TEXT NOT NULL,
+                FOREIGN KEY (UserId) REFERENCES User(UserId)
             );
         """;
 
@@ -30,12 +32,13 @@ public class MemberDatabaseManager extends DatabaseManager {
     }
 
     public static void insert(Member member) {
-        String sql = "INSERT INTO Member (Points, CustomerType) VALUES (?, ?)";
+        String sql = "INSERT INTO Member (UserId, Points, CustomerType) VALUES (?, ?, ?)";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, member.getPoints() == null ? 0 : member.getPoints());
-            pstmt.setString(2, member.getCustomerType());
+            pstmt.setInt(1, member.getId()); // Member extends User, so getId() returns the user ID
+            pstmt.setInt(2, member.getPoints() == null ? 0 : member.getPoints());
+            pstmt.setString(3, member.getCustomerType());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

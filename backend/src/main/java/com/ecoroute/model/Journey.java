@@ -5,28 +5,20 @@ import java.time.LocalDateTime;
 
 public class Journey {
     private Integer journeyId;
-
-    private Member member;
-
+    private Integer userId;  // Changed from Member to userId
     private String vehicle;
-
     private BigDecimal distance;
-
     private BigDecimal emissions;
-
     private BigDecimal emissionsReduced;
-
     private LocalDateTime travelDate;
-
     private String travelingFrom;
-
     private String travelingTo;
 
     public Integer getJourneyId() { return journeyId; }
     public void setJourneyId(Integer journeyId) { this.journeyId = journeyId; }
 
-    public Member getMember() { return member; }
-    public void setMember(Member member) { this.member = member; }
+    public Integer getUserId() { return userId; }
+    public void setUserId(Integer userId) { this.userId = userId; }
 
     public String getVehicle() { return vehicle; }
     public void setVehicle(String vehicle) { this.vehicle = vehicle; }

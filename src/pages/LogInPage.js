@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FaUserCircle, FaLock, FaEnvelope, FaUserPlus, FaSignInAlt, FaUserShield, FaArrowLeft } from 'react-icons/fa';
 import api from "../services/api";
 import "../App.css";
 
@@ -106,29 +107,38 @@ function LoginPage({ setUser }) {
     <div className="login-container">
       <div className="login-box">
         <img src="/logo.png" alt="ECO Route Logo" className="page-logo" />
-        <h3>Sign in to continue or explore as guest</h3>
+        <h3><FaSignInAlt style={{ marginRight: '0.5rem', verticalAlign: 'middle' }} />Sign in to continue or explore as guest</h3>
         
 
         {!showRegister ? (
           <>
             <form onSubmit={handleLogin}>
-              <input
-                type="text"
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              />
+              <div style={{ position: 'relative' }}>
+                <FaUserCircle style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#999', zIndex: 1 }} />
+                <input
+                  type="text"
+                  placeholder="Username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                  style={{ paddingLeft: '2.5rem' }}
+                />
+              </div>
 
-              <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <div style={{ position: 'relative' }}>
+                <FaLock style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#999', zIndex: 1 }} />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  style={{ paddingLeft: '2.5rem' }}
+                />
+              </div>
 
               <button type="submit" className="primary-btn" disabled={loading}>
+                <FaSignInAlt style={{ marginRight: '0.5rem' }} />
                 {loading ? "Logging in..." : "Login"}
               </button>
             </form>
@@ -138,6 +148,7 @@ function LoginPage({ setUser }) {
               onClick={handleGuest}
               disabled={guestLoading}
             >
+              <FaUserShield style={{ marginRight: '0.5rem' }} />
               {guestLoading ? "Continuing as Guest..." : "Continue as Guest"}
             </button>
 
@@ -149,6 +160,7 @@ function LoginPage({ setUser }) {
                   setRegisterError("");
                 }}
               >
+                <FaUserPlus style={{ marginRight: '0.5rem' }} />
                 Create a new account
               </button>
             </div>
@@ -156,38 +168,55 @@ function LoginPage({ setUser }) {
         ) : (
           <>
             <form onSubmit={handleRegister}>
-              <input
-                type="text"
-                placeholder="Choose a username"
-                value={regUsername}
-                onChange={(e) => setRegUsername(e.target.value)}
-                required
-              />
+              <div style={{ position: 'relative' }}>
+                <FaUserCircle style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#999', zIndex: 1 }} />
+                <input
+                  type="text"
+                  placeholder="Choose a username"
+                  value={regUsername}
+                  onChange={(e) => setRegUsername(e.target.value)}
+                  required
+                  style={{ paddingLeft: '2.5rem' }}
+                />
+              </div>
 
-              <input
-                type="password"
-                placeholder="Choose a password"
-                value={regPassword}
-                onChange={(e) => setRegPassword(e.target.value)}
-                required
-              />
+              <div style={{ position: 'relative' }}>
+                <FaLock style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#999', zIndex: 1 }} />
+                <input
+                  type="password"
+                  placeholder="Choose a password"
+                  value={regPassword}
+                  onChange={(e) => setRegPassword(e.target.value)}
+                  required
+                  style={{ paddingLeft: '2.5rem' }}
+                />
+              </div>
 
-              <input
-                type="password"
-                placeholder="Confirm password"
-                value={regConfirm}
-                onChange={(e) => setRegConfirm(e.target.value)}
-                required
-              />
+              <div style={{ position: 'relative' }}>
+                <FaLock style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#999', zIndex: 1 }} />
+                <input
+                  type="password"
+                  placeholder="Confirm password"
+                  value={regConfirm}
+                  onChange={(e) => setRegConfirm(e.target.value)}
+                  required
+                  style={{ paddingLeft: '2.5rem' }}
+                />
+              </div>
 
-              <input
-                type="email"
-                placeholder="Email (optional)"
-                value={regEmail}
-                onChange={(e) => setRegEmail(e.target.value)}
-              />
+              <div style={{ position: 'relative' }}>
+                <FaEnvelope style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#999', zIndex: 1 }} />
+                <input
+                  type="email"
+                  placeholder="Email (optional)"
+                  value={regEmail}
+                  onChange={(e) => setRegEmail(e.target.value)}
+                  style={{ paddingLeft: '2.5rem' }}
+                />
+              </div>
 
               <button type="submit" className="primary-btn" disabled={registerLoading}>
+                <FaUserPlus style={{ marginRight: '0.5rem' }} />
                 {registerLoading ? "Creating account..." : "Create account"}
               </button>
             </form>
@@ -200,6 +229,7 @@ function LoginPage({ setUser }) {
                   setRegisterError("");
                 }}
               >
+                <FaArrowLeft style={{ marginRight: '0.5rem' }} />
                 Back to Login
               </button>
             </div>

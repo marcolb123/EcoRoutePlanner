@@ -4,34 +4,44 @@ import java.time.LocalDateTime;
 
 public class User {
     private Integer id;
-
     private String firstName;
-
     private String lastName;
-
     private String street;
     private String city;
-
     private String postCode;
-
     private LocalDateTime registeredAt;
-
     private boolean isSuspended = false;
-
     private String username;
-    private String password; // in prod store hashed
-
+    private String password;
     private String email;
-
     private String phoneNumber;
-
-    // kept for backwards-compatibility with earlier implementation
     private UserRole role = UserRole.USER;
-
     private Integer ecoPoints = 0;
 
-    // Lightweight enum kept to avoid breaking existing code that expects a simple role value.
     public enum UserRole { USER, GUEST, ADMIN }
+
+    // No-arg constructor (required)
+    public User() {
+    }
+
+    // Full constructor (optional convenience)
+    public User(String firstName, String lastName, String street, String city, String postcode,
+                String username, String password, String email, String phoneNumber,
+                UserRole role, Integer ecoPoints) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.street = street;
+        this.city = city;
+        this.postCode = postcode;
+        this.registeredAt = LocalDateTime.now();
+        this.isSuspended = false;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.role = role;
+        this.ecoPoints = ecoPoints;
+    }
 
     // --- Getters / Setters ---
     public Integer getId() { return id; }
@@ -75,20 +85,4 @@ public class User {
 
     public Integer getEcoPoints() { return ecoPoints; }
     public void setEcoPoints(Integer ecoPoints) { this.ecoPoints = ecoPoints; }
-
-    private void User(String firstName, String lastName, String street, String city, String postcode, String username, String password, String email, String phoneNumber, UserRole role, Integer ecoPoints) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.street = street;
-        this.city = city;
-        this.postCode = postcode;
-        this.registeredAt = LocalDateTime.now();
-        this.isSuspended = false;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.role = role;
-        this.ecoPoints = ecoPoints;
-    }
 }

@@ -27,19 +27,28 @@ public class UserDatabaseManager extends DatabaseManager {
                 Email TEXT,
                 Password TEXT,
                 PhoneNumber TEXT,
-                Username TEXT UNIQUE
+                Username TEXT UNIQUE,
+                Role TEXT DEFAULT 'USER',
+                EcoPoints INTEGER DEFAULT 0
             );
         """;
         try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
+            // Add Role and EcoPoints columns if they don't exist (for existing databases)
+            try {
+                stmt.executeUpdate("ALTER TABLE User ADD COLUMN Role TEXT DEFAULT 'USER';");
+            } catch (SQLException ignored) {}
+            try {
+                stmt.executeUpdate("ALTER TABLE User ADD COLUMN EcoPoints INTEGER DEFAULT 0;");
+            } catch (SQLException ignored) {}
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public static void insert(User u) {
-        String sql = "INSERT INTO User (FirstName, LastName, Street, City, PostCode, RegisteredAt, IsSuspended, Email, Password, PhoneNumber, Username) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        String sql = "INSERT INTO User (FirstName, LastName, Street, City, PostCode, RegisteredAt, IsSuspended, Email, Password, PhoneNumber, Username, Role, EcoPoints) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, u.getFirstName());
             pstmt.setString(2, u.getLastName());
             pstmt.setString(3, u.getStreet());
@@ -51,7 +60,16 @@ public class UserDatabaseManager extends DatabaseManager {
             pstmt.setString(9, u.getPassword());
             pstmt.setString(10, u.getPhoneNumber());
             pstmt.setString(11, u.getUsername());
+            pstmt.setString(12, u.getRole() == null ? "USER" : u.getRole().name());
+            pstmt.setInt(13, u.getEcoPoints() == null ? 0 : u.getEcoPoints());
             pstmt.executeUpdate();
+            
+            // Retrieve generated ID and set it on the User object
+            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    u.setId(generatedKeys.getInt(1));
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -76,6 +94,23 @@ public class UserDatabaseManager extends DatabaseManager {
                 u.setPassword(rs.getString("Password"));
                 u.setPhoneNumber(rs.getString("PhoneNumber"));
                 u.setUsername(rs.getString("Username"));
+                // Parse role from database
+                try {
+                    String roleStr = rs.getString("Role");
+                    if (roleStr != null && !roleStr.isEmpty()) {
+                        u.setRole(User.UserRole.valueOf(roleStr));
+                    } else {
+                        u.setRole(User.UserRole.USER);
+                    }
+                } catch (Exception e) {
+                    u.setRole(User.UserRole.USER);
+                }
+                // Parse eco points
+                try {
+                    u.setEcoPoints(rs.getInt("EcoPoints"));
+                } catch (Exception e) {
+                    u.setEcoPoints(0);
+                }
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -85,7 +120,7 @@ public class UserDatabaseManager extends DatabaseManager {
     }
 
     public static void update(User u) {
-        String sql = "UPDATE User SET FirstName = ?, LastName = ?, Street = ?, City = ?, PostCode = ?, RegisteredAt = ?, IsSuspended = ?, Email = ?, Password = ?, PhoneNumber = ?, Username = ? WHERE UserId = ?";
+        String sql = "UPDATE User SET FirstName = ?, LastName = ?, Street = ?, City = ?, PostCode = ?, RegisteredAt = ?, IsSuspended = ?, Email = ?, Password = ?, PhoneNumber = ?, Username = ?, Role = ?, EcoPoints = ? WHERE UserId = ?";
         try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, u.getFirstName());
             pstmt.setString(2, u.getLastName());
@@ -98,7 +133,9 @@ public class UserDatabaseManager extends DatabaseManager {
             pstmt.setString(9, u.getPassword());
             pstmt.setString(10, u.getPhoneNumber());
             pstmt.setString(11, u.getUsername());
-            pstmt.setInt(12, u.getId());
+            pstmt.setString(12, u.getRole() == null ? "USER" : u.getRole().name());
+            pstmt.setInt(13, u.getEcoPoints() == null ? 0 : u.getEcoPoints());
+            pstmt.setInt(14, u.getId());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

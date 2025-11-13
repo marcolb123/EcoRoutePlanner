@@ -18,14 +18,19 @@ public class StaffDatabaseManager extends DatabaseManager {
         String sql = """
             CREATE TABLE IF NOT EXISTS Staff (
                 StaffId INTEGER PRIMARY KEY AUTOINCREMENT,
+                UserId INTEGER NOT NULL,
                 RoleId INTEGER,
                 EmploymentStatus TEXT,
+                FOREIGN KEY(UserId) REFERENCES User(UserId),
                 FOREIGN KEY(RoleId) REFERENCES Role(RoleId)
             );
         """;
         try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
             // Ensure columns exist in older DBs: try to add missing columns (ignored on failure)
+            try {
+                stmt.executeUpdate("ALTER TABLE Staff ADD COLUMN UserId INTEGER;");
+            } catch (SQLException ignored) {}
             try {
                 stmt.executeUpdate("ALTER TABLE Staff ADD COLUMN RoleId INTEGER;");
             } catch (SQLException ignored) {}
@@ -38,10 +43,11 @@ public class StaffDatabaseManager extends DatabaseManager {
     }
 
     public static void insert(Staff s) {
-        String sql = "INSERT INTO Staff (RoleId, EmploymentStatus) VALUES (?, ?)";
+        String sql = "INSERT INTO Staff (UserId, RoleId, EmploymentStatus) VALUES (?, ?, ?)";
         try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, s.getStaffRole() == null || s.getStaffRole().getRoleId() == null ? 0 : s.getStaffRole().getRoleId());
-            pstmt.setString(2, s.getEmploymentStatus());
+            pstmt.setInt(1, s.getId()); // Staff extends User, so getId() returns the user ID
+            pstmt.setInt(2, s.getStaffRole() == null || s.getStaffRole().getRoleId() == null ? 0 : s.getStaffRole().getRoleId());
+            pstmt.setString(3, s.getEmploymentStatus());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -55,6 +61,11 @@ public class StaffDatabaseManager extends DatabaseManager {
             while (rs.next()) {
                 Staff s = new Staff();
                 s.setStaffId(rs.getInt("StaffId"));
+                try {
+                    s.setId(rs.getInt("UserId"));
+                } catch (SQLException ignored) {
+                    // UserId column might not exist in older databases
+                }
                 int roleId = rs.getInt("RoleId");
                 if (roleId > 0) {
                     Role r = new Role();
@@ -71,11 +82,12 @@ public class StaffDatabaseManager extends DatabaseManager {
     }
 
     public static void update(Staff s) {
-        String sql = "UPDATE Staff SET RoleId = ?, EmploymentStatus = ? WHERE StaffId = ?";
+        String sql = "UPDATE Staff SET UserId = ?, RoleId = ?, EmploymentStatus = ? WHERE StaffId = ?";
         try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, s.getStaffRole() == null || s.getStaffRole().getRoleId() == null ? 0 : s.getStaffRole().getRoleId());
-            pstmt.setString(2, s.getEmploymentStatus());
-            pstmt.setInt(3, s.getStaffId());
+            pstmt.setInt(1, s.getId());
+            pstmt.setInt(2, s.getStaffRole() == null || s.getStaffRole().getRoleId() == null ? 0 : s.getStaffRole().getRoleId());
+            pstmt.setString(3, s.getEmploymentStatus());
+            pstmt.setInt(4, s.getStaffId());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
