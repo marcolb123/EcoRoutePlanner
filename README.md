@@ -298,25 +298,7 @@ Contributions are welcome! Please follow these guidelines:
 4. Test your changes thoroughly
 5. Submit a pull request with detailed description
 
----
 
-## Requirements Coverage
-
-**Functional Requirements: ~85% Complete**
-- User authentication and profile management
-- Route planning with emissions comparison
-- Journey history and statistics
-- Reward system with automatic point allocation
-- Vehicle comparison tool
-- Admin dashboard with CRUD operations
-
-**Non-Functional Requirements:**
-- Password encryption (BCrypt)
-- Role-based access control
-- Input validation
-- Responsive design
-
----
 
 ## License
 
