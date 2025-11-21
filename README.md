@@ -1,6 +1,9 @@
 # Eco Route Planner
 
 A sustainable travel application that helps users plan eco-friendly routes, track their environmental impact, and earn rewards for sustainable transportation choices.
+![demo](https://github.com/user-attachments/assets/1252c5fd-196c-45b3-89ec-c5bf9360612a)
+
+
 
 ## Technology Stack
 
