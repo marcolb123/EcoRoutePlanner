@@ -217,45 +217,7 @@ The database is automatically seeded with test accounts:
 
 ---
 
-## Verification Checklist
 
-After setup, verify the following:
-
-- [ ] Visit http://localhost:3000 - Homepage loads
-- [ ] Login with test credentials works
-- [ ] Guest access works
-- [ ] Route planner calculates routes
-- [ ] Journey saving awards eco points
-- [ ] Statistics page displays data
-- [ ] Admin dashboard accessible (admin accounts only)
-- [ ] Reward redemption works
-- [ ] Vehicle comparison displays correctly
-
----
-
-## Development Workflow
-
-### Working with Branches
-
-Always create a new branch for features:
-
-```bash
-git checkout -b feature-name
-```
-
-### Committing Changes
-
-```bash
-git add .
-git commit -m "Description of changes"
-git push origin feature-name
-```
-
-### Pull Requests
-
-Submit a pull request on GitHub for team review before merging to main.
-
----
 
 ## Database Reset
 
@@ -272,42 +234,7 @@ mvn spring-boot:run
 
 ---
 
-## Troubleshooting
 
-**Backend won't start:**
-- Verify Java 17 is installed: `java -version`
-- Check Maven is installed: `mvn -v`
-- Ensure port 8080 is not in use
-
-**Frontend won't start:**
-- Verify Node.js is installed: `node -v`
-- Delete `node_modules` and reinstall: `rm -rf node_modules && npm install`
-- Clear npm cache: `npm cache clean --force`
-
-**Database issues:**
-- Delete `data/app.db` and restart backend
-- Check file permissions on `data/` folder
-
-**Google Maps not loading:**
-- Verify `REACT_APP_GOOGLE_MAPS_API_KEY` in `.env` file
-- Check API key has Maps, Directions, and Distance Matrix enabled
-- Ensure billing is enabled on Google Cloud Console
-
----
-
-## Contributing
-
-Contributions are welcome! Please follow these guidelines:
-
-1. Fork the repository
-2. Create a feature branch
-3. Write clear commit messages
-4. Test your changes thoroughly
-5. Submit a pull request with detailed description
-
-
-
-## License
 
 This project is licensed under the MIT License.
 
