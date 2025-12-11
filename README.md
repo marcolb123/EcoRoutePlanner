@@ -236,9 +236,5 @@ mvn spring-boot:run
 
 
 
-This project is licensed under the MIT License.
 
-## Contact
-
-For questions or issues, please open a GitHub issue or contact the development team.
 
